@@ -16,12 +16,17 @@ namespace WorkCalendarWebApp.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<AuthDbContext>(options =>
+                services.AddDbContext<CalendarWebAppContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("AuthDbContextConnection")));
+                        context.Configuration.GetConnectionString("CalendarWebAppContextConnection")));
 
-                services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<AuthDbContext>();
+                services.AddDefaultIdentity<ApplicationUser>(options => 
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                })
+                    .AddEntityFrameworkStores<CalendarWebAppContext>();
             });
         }
     }

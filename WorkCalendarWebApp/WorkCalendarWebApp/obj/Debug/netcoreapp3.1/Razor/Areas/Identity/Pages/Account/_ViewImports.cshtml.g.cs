@@ -34,6 +34,13 @@ using WorkCalendarWebApp.Areas.Identity.Pages;
 #line hidden
 #nullable disable
 #nullable restore
+#line 5 "C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\Areas\Identity\Pages\_ViewImports.cshtml"
+using WorkCalendarWebApp.Areas.Identity.Data;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\Areas\Identity\Pages\Account\_ViewImports.cshtml"
 using WorkCalendarWebApp.Areas.Identity.Pages.Account;
 
@@ -41,7 +48,7 @@ using WorkCalendarWebApp.Areas.Identity.Pages.Account;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ecd207bf137266d2a0460e959722cb1f0b2a57e7", @"/Areas/Identity/Pages/Account/_ViewImports.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"24e753be4ee910190bc4e3542349981d062a4b9e", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"73c8174245e1adf4ccb23c8f19faf358e8f2814e", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
     public class Areas_Identity_Pages_Account__ViewImports : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WorkCalendarWebApp.Areas.Identity.Data;
 
 namespace WorkCalendarWebApp.Data
 {
-    public class AuthDbContext : IdentityDbContext<IdentityUser>
+    public class CalendarWebAppContext : IdentityDbContext<ApplicationUser>
     {
-        public AuthDbContext(DbContextOptions<AuthDbContext> options)
+        public CalendarWebAppContext(DbContextOptions<CalendarWebAppContext> options)
             : base(options)
         {
         }

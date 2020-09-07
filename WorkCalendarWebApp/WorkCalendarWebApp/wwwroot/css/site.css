@@ -89,3 +89,9 @@ div.login-logout-tab a.nav-link {
     color: #495057;
     text-align: center;
 }
+
+div.login-form-icon {
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
