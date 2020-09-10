@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using WorkCalendarWebApp.Models;
 
 namespace WorkCalendarWebApp.Areas.Identity.Data
 {
@@ -19,5 +20,7 @@ namespace WorkCalendarWebApp.Areas.Identity.Data
         public string LastName { get; set; }
 
         public Boolean MainUser { get; set; }
+
+        public Team Teams { get; set; }
     }
 }
