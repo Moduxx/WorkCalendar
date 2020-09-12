@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WorkCalendarWebApp.Data.Limit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Global application limits</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxDaysInARow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxDaysPerMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxDaysPerYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxTopicsPerDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxDaysPerQuarter)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysInARow)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysPerMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysPerYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxTopicsPerDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysPerQuarter)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

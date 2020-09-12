@@ -14,7 +14,7 @@ namespace WorkCalendarWebApp.Data
         public int Id { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         [Required(ErrorMessage = "This field is required")]
-        [DisplayName("Team Name")]
+        [DisplayName("Limitation Name")]
         public string TeamName { get; set; }
         [DisplayName("Max amount of days in a row")]
         public int MaxDaysInARow { get; set; }

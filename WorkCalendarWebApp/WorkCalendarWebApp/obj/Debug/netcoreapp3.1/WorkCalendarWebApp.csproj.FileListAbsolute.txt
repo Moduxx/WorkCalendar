@@ -195,3 +195,5 @@ C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebA
 C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Topics\Details.cshtml.g.cs
 C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Topics\Edit.cshtml.g.cs
 C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Topics\Index.cshtml.g.cs
+C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Limits\Edit.cshtml.g.cs
+C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Limits\Index.cshtml.g.cs
