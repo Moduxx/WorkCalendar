@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using WorkCalendarWebApp.Data;
 using WorkCalendarWebApp.ViewModel;
 
@@ -71,6 +72,57 @@ namespace WorkCalendarWebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(topic);
+        }
+
+        // GET: Topics/Create
+        public async Task<IActionResult> AddSubtopics(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var topic = await _context.Topic.FindAsync(id);
+            if (topic == null)
+            {
+                return NotFound();
+            }
+            var subtopic = await _context.Subtopic
+                .ToListAsync();
+            var topicsAndSubtopics = new TopicsAndSubtopics()
+            {
+                Topic = topic,
+                Subtopics = subtopic.FindAll(n => n.TopicName == topic.TopicName),
+                Subtopic = new Subtopic()
+            };
+
+            return View(topicsAndSubtopics);
+        }
+
+        // POST: Topics/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddSubtopics(int id, [Bind("Id,SubtopicName,AdditionalInfo")] Subtopic subtopic)
+        {
+            var topic = await _context.Topic
+                .FirstOrDefaultAsync(m => m.Id == id);
+            subtopic.TopicName = topic.TopicName;
+
+            if ((subtopic.TopicName != "") && (subtopic.SubtopicName != ""))
+            {
+                _context.Add(subtopic);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(AddSubtopics));
+            }
+            var subtopicsForView = await _context.Subtopic
+                .ToListAsync();
+            var topicsAndSubtopics = new TopicsAndSubtopics()
+            {
+                Topic = topic,
+                Subtopics = subtopicsForView.FindAll(n => n.TopicName == topic.TopicName)
+            };
+            return View(topicsAndSubtopics);
         }
 
         // GET: Topics/Edit/5
@@ -157,6 +209,14 @@ namespace WorkCalendarWebApp.Controllers
         {
             var topic = await _context.Topic.FindAsync(id);
             _context.Topic.Remove(topic);
+
+            var subtopics = await _context.Subtopic.ToListAsync();
+            var subtopicList = subtopics.FindAll(n => n.TopicName == topic.TopicName);
+            foreach (var subtopic in subtopicList)
+            {
+                _context.Subtopic.Remove(subtopic);
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

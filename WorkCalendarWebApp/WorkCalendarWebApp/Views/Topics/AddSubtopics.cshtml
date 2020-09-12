@@ -1,0 +1,87 @@
+﻿@model WorkCalendarWebApp.ViewModel.TopicsAndSubtopics;
+
+@{
+    ViewData["Title"] = "AddSubtopics";
+}
+
+<h1>Add Subtopics</h1>
+
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Topic.TopicName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Topic.TopicName)
+    </dd>
+</dl>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddSubtopics">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Subtopic.SubtopicName" class="control-label"></label>
+                    <input asp-for="Subtopic.SubtopicName" class="form-control" />
+                    <span asp-validation-for="Subtopic.SubtopicName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subtopic.AdditionalInfo" class="control-label"></label>
+                    <input asp-for="Subtopic.AdditionalInfo" class="form-control" />
+                    <span asp-validation-for="Subtopic.AdditionalInfo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    <p></p>
+    <h2>Subtopics</h2>
+    @if (Model.Subtopics.Count == 0)
+    {
+        <p>There are not any subtopics for this topic.</p>
+    }
+    else
+    {
+        var oneSubtopicForName = Model.Subtopics.First();
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => oneSubtopicForName.SubtopicName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => oneSubtopicForName.AdditionalInfo)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var subtopic in Model.Subtopics)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => subtopic.SubtopicName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => subtopic.AdditionalInfo)
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

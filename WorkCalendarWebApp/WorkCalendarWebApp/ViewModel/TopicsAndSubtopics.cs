@@ -10,5 +10,6 @@ namespace WorkCalendarWebApp.ViewModel
     {
         public Topic Topic { get; set; }
         public List<Subtopic> Subtopics { get; set; }
+        public Subtopic Subtopic { get; set; }
     }
 }
