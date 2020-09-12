@@ -16,6 +16,7 @@ namespace WorkCalendarWebApp.Controllers
     public class TopicsController : Controller
     {
         private readonly DbModelContext _context;
+        public static int? TopicIdForSubtopics;
 
         public TopicsController(DbModelContext context)
         {
@@ -81,6 +82,9 @@ namespace WorkCalendarWebApp.Controllers
             {
                 return NotFound();
             }
+
+            TopicIdForSubtopics = id;
+
             var topic = await _context.Topic.FindAsync(id);
             if (topic == null)
             {
@@ -219,6 +223,20 @@ namespace WorkCalendarWebApp.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Topics/DeleteSubtopic/3
+        public async Task<IActionResult> DeleteSubtopic(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var subtopic = await _context.Subtopic.FindAsync(id);
+            _context.Subtopic.Remove(subtopic);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(AddSubtopics), "Topics", new { id = TopicIdForSubtopics});
         }
 
         private bool TopicExists(int id)

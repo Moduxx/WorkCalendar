@@ -13,14 +13,18 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-@if (Model.TeamName != "GlobalLimit")
-{
-            <div class="form-group">
-                <label asp-for="TeamName" class="control-label"></label>
-                <input asp-for="TeamName" class="form-control" />
-                <span asp-validation-for="TeamName" class="text-danger"></span>
-            </div>
-}
+            @if (Model.TeamName == "GlobalLimit")
+            {
+                <input type="hidden" asp-for="@Model.TeamName" />
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="@Model.TeamName" class="control-label"></label>
+                    <input asp-for="@Model.TeamName" class="form-control" />
+                    <span asp-validation-for="@Model.TeamName" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="MaxDaysInARow" class="control-label"></label>
                 <input asp-for="MaxDaysInARow" class="form-control" />
