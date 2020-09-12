@@ -5,8 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\DbModel\20200911071253_InitTopics.cs" />
+    <Compile Remove="Migrations\DbModel\20200911071253_InitTopics.Designer.cs" />
+    <Compile Remove="Migrations\DbModel\20200911074311_InitModels.cs" />
+    <Compile Remove="Migrations\DbModel\20200911074311_InitModels.Designer.cs" />
+    <Compile Remove="Migrations\DbModel\20200911092358_EditLengths.cs" />
+    <Compile Remove="Migrations\DbModel\20200911092358_EditLengths.Designer.cs" />
+    <Compile Remove="Migrations\DbModel\20200911092809_AddIdsEditLengths.cs" />
+    <Compile Remove="Migrations\DbModel\20200911092809_AddIdsEditLengths.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
       <PrivateAssets>all</PrivateAssets>

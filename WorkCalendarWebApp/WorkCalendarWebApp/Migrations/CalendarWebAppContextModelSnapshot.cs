@@ -176,6 +176,9 @@ namespace WorkCalendarWebApp.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsMainUser")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(100)");
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WorkCalendarWebApp.Models
 {
-    public class WorkingDay
+    public class Event
     {
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }

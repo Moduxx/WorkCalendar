@@ -19,8 +19,7 @@ namespace WorkCalendarWebApp.Areas.Identity.Data
         [Column(TypeName = "nvarchar(100)")]
         public string LastName { get; set; }
 
-        public Boolean MainUser { get; set; }
+        public Boolean IsMainUser { get; set; }
 
-        public Team Teams { get; set; }
     }
 }

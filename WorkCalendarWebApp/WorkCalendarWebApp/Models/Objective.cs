@@ -11,7 +11,6 @@ namespace WorkCalendarWebApp.Models
         public Team Team { get; set; }
         public Subtopic Subtopic { get; set; }
         public Boolean IsLearnt { get; set; }
-
-        public WorkingDay WorkingDay { get; set; }
+        public Event Event { get; set; }
     }
 }
