@@ -1,0 +1,65 @@
+﻿@model WorkCalendarWebApp.ViewModel.TeamAndMembers;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Team Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Team.TeamName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Team.TeamName)
+        </dd>
+        <dt class="col-sm-2">
+            Team Leader
+        </dt>
+        <dd class="col-sm-10">
+            @Model.TeamLeader
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Team.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<p></p>
+<h2>Team Members</h2>
+@if (Model.Teams.Count == 0)
+{
+    <p>This team does not contain any members.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team.TeamName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team.WorkerID)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model.Teams)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => member.TeamName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => member.WorkerID)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

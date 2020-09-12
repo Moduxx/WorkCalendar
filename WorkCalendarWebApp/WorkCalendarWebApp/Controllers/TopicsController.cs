@@ -216,9 +216,13 @@ namespace WorkCalendarWebApp.Controllers
 
             var subtopics = await _context.Subtopic.ToListAsync();
             var subtopicList = subtopics.FindAll(n => n.TopicName == topic.TopicName);
-            foreach (var subtopic in subtopicList)
+
+            if (subtopicList.Any())
             {
-                _context.Subtopic.Remove(subtopic);
+                foreach (var subtopic in subtopicList)
+                {
+                    _context.Subtopic.Remove(subtopic);
+                }
             }
 
             await _context.SaveChangesAsync();

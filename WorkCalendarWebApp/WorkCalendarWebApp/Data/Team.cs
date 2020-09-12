@@ -21,6 +21,7 @@ namespace WorkCalendarWebApp.Data
         [Required(ErrorMessage = "This field is required")]
         [DisplayName("Worker Name")]
         public string WorkerID { get; set; }
+        [DisplayName("Is Team Leader?")]
         public Boolean IsTeamLeader { get; set; }
     }
 }
