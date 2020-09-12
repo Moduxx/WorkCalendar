@@ -203,6 +203,31 @@ namespace WorkCalendarWebApp.Controllers
             return View(teamAndMembers);
         }
 
+        public async Task<IActionResult> AddTeamMember(int id, [Bind("Id,WorkerID")] Team team)
+        {
+            var teamMember = await _context.Team
+                .FirstOrDefaultAsync(m => m.Id == id);
+            team.TeamName = teamMember.TeamName;
+
+            if (team.WorkerID != "")
+            {
+                _context.Add(team);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Manage));
+            }
+            var teamForView = await _context.Team
+                .ToListAsync();
+            var teamMembers = teamForView.FindAll(n => n.TeamName == team.TeamName);
+            var teamLeader = teamMembers.FirstOrDefault(m => m.IsTeamLeader == true);
+            var teamAndMembers = new TeamAndMembers()
+            {
+                Team = team,
+                Teams = teamMembers,
+                TeamLeader = teamLeader.WorkerID
+            };
+            return View(teamAndMembers);
+        }
+
         private bool TeamExists(int id)
         {
             return _context.Team.Any(e => e.Id == id);

@@ -27,6 +27,24 @@
     <a asp-action="Edit" asp-route-id="@Model.Team.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<p></p>
+
+<h2>Add Team Members</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddTeamMember">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Team.WorkerID" class="control-label"></label>
+                <input asp-for="Team.WorkerID" class="form-control" />
+                <span asp-validation-for="Team.WorkerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <p></p>
 <h2>Team Members</h2>
@@ -51,17 +69,17 @@ else
         <tbody>
             @foreach (var member in Model.Teams)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => member.TeamName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => member.WorkerID)
-                </td>
-                <td>
-                    <a asp-action="RemoveMember" asp-route-id="@member.Id" class="text-danger ml-1" onclick="return confirm('Are you sure to remove this worker?')">Remove</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => member.TeamName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => member.WorkerID)
+                    </td>
+                    <td>
+                        <a asp-action="RemoveMember" asp-route-id="@member.Id" class="text-danger ml-1" onclick="return confirm('Are you sure to remove this worker?')">Remove</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

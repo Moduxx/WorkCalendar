@@ -85,22 +85,4 @@
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        <script type="text/javascript">
-            function DeleteSub(id) {
-                $.ajax({
-                    url: "@Url.Action("DeleteSubtopic","Topics")",
-                    data: { id: id },
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    type: "POST",
-                    success: function (data) {
-
-                    },
-                    error: function (error) {
-
-                    }
-                })
-            }
-        </script>
     }
