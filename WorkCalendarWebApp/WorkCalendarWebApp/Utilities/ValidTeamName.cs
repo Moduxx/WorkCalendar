@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,15 +7,15 @@ using WorkCalendarWebApp.Data;
 
 namespace WorkCalendarWebApp.Utilities
 {
-    public class ValidTopicName : ValidationAttribute
+    public class ValidTeamName : ValidationAttribute
     {
-        public static List<Topic> allTopics;
+        public static List<Team> allTeams;
         public override bool IsValid(object value)
         {
-            if (allTopics.Any())
+            if (allTeams.Any())
             {
-                var topics = allTopics.Where(n => n.TopicName == value.ToString());
-                return !topics.Any();
+                var teams = allTeams.Where(n => n.TeamName == value.ToString());
+                return !teams.Any();
             }
             return true;
         }

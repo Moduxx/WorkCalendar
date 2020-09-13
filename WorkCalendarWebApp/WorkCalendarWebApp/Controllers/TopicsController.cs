@@ -145,15 +145,8 @@ namespace WorkCalendarWebApp.Controllers
             {
                 return NotFound();
             }
-            var subtopic = await _context.Subtopic
-                .ToListAsync();
-            var topicsAndSubtopics = new TopicsAndSubtopics()
-            {
-                Topic = topic,
-                Subtopics = subtopic.FindAll(n => n.TopicName == topic.TopicName)
-            };
 
-            return View(topicsAndSubtopics);
+            return View(topic);
         }
 
         // POST: Topics/Edit/5

@@ -17,6 +17,7 @@ namespace WorkCalendarWebApp.Data
         [Column(TypeName = "nvarchar(100)")]
         [Required(ErrorMessage = "This field is required")]
         [DisplayName("Team Name")]
+        [ValidTeamName(ErrorMessage = "This team already exists!")]
         public string TeamName { get; set; }
         [Column(TypeName = "nvarchar(450)")]
         [Required(ErrorMessage = "This field is required")]

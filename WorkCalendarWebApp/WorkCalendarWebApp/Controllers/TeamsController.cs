@@ -35,6 +35,9 @@ namespace WorkCalendarWebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var teamsToShow = await _context.Team.ToListAsync();
+
+            ValidTeamName.allTeams = teamsToShow;
+
             return View(teamsToShow.FindAll(m => m.WorkerID == User.Identity.Name));
         }
 
@@ -78,9 +81,17 @@ namespace WorkCalendarWebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TeamName")] Team team)
+        public async Task<IActionResult> Create([Bind("TeamName")] Team team)
         {
-            if (team.TeamName != "")
+            bool teamNameExists = false;
+            var allTeams = await _context.Team.ToListAsync();
+            var teamsWithTheSameName = allTeams.FindAll(n => n.TeamName == team.TeamName);
+            if (teamsWithTheSameName.Any())
+            {
+                teamNameExists = true;
+            }
+
+            if ((team.TeamName != "") && (teamNameExists == false))
             {
                 team.WorkerID = User.Identity.Name;
                 team.IsTeamLeader = true;
@@ -104,6 +115,9 @@ namespace WorkCalendarWebApp.Controllers
             {
                 return NotFound();
             }
+
+            ValidTeamName.allTeams = await _context.Team.ToListAsync();
+
             return View(team);
         }
 
@@ -123,7 +137,16 @@ namespace WorkCalendarWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(team);
+                    // Update team members info
+                    var oldTeamName = await _context.Team.FindAsync(id);
+                    var allTeams = await _context.Team.ToListAsync();
+                    var teamMembers = allTeams.FindAll(n => n.TeamName == oldTeamName.TeamName);
+                    foreach (var teamMember in teamMembers)
+                    {
+                        teamMember.TeamName = team.TeamName;
+                        _context.Update(teamMember);
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -199,6 +222,8 @@ namespace WorkCalendarWebApp.Controllers
             {
                 return NotFound();
             }
+
+            ValidTeamName.allTeams = new List<Team>();
 
             // Setup view model
             var allTeamMembers = await _context.Team.ToListAsync();

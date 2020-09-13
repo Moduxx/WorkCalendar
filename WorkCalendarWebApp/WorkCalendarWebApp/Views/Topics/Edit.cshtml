@@ -1,4 +1,4 @@
-﻿@model WorkCalendarWebApp.ViewModel.TopicsAndSubtopics;
+﻿@model WorkCalendarWebApp.Data.Topic;
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,16 +11,16 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@Model.Topic.Id" />
+            <input type="hidden" asp-for="@Model.Id" />
             <div class="form-group">
-                <label asp-for="@Model.Topic.TopicName" class="control-label"></label>
-                <input asp-for="@Model.Topic.TopicName" class="form-control" />
-                <span asp-validation-for="@Model.Topic.TopicName" class="text-danger"></span>
+                <label asp-for="@Model.TopicName" class="control-label"></label>
+                <input asp-for="@Model.TopicName" class="form-control" />
+                <span asp-validation-for="@Model.TopicName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Topic.AdditionalInfo" class="control-label"></label>
-                <input asp-for="@Model.Topic.AdditionalInfo" class="form-control" />
-                <span asp-validation-for="@Model.Topic.AdditionalInfo" class="text-danger"></span>
+                <label asp-for="@Model.AdditionalInfo" class="control-label"></label>
+                <input asp-for="@Model.AdditionalInfo" class="form-control" />
+                <span asp-validation-for="@Model.AdditionalInfo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
