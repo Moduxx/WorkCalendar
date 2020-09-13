@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WorkCalendarWebApp.Areas.Identity.Data;
 using WorkCalendarWebApp.Data;
+using WorkCalendarWebApp.ViewModel;
 
 namespace WorkCalendarWebApp.Controllers
 {
@@ -14,16 +17,26 @@ namespace WorkCalendarWebApp.Controllers
     public class LimitsController : Controller
     {
         private readonly DbModelContext _context;
+        private readonly UserManager<ApplicationUser> _userContext;
 
-        public LimitsController(DbModelContext context)
+        public LimitsController(DbModelContext context, UserManager<ApplicationUser> userContext)
         {
             _context = context;
+            _userContext = userContext;
         }
 
         // GET: Limits
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Limit.ToListAsync());
+            var allUsers = _userContext.Users;
+            var currentUser = allUsers.FirstOrDefault(n => n.UserName == User.Identity.Name);
+
+            var LimitAndIsMainUser = new LimitAndIsMainUser()
+            {
+                Limits = await _context.Limit.ToListAsync(),
+                IsMainUser = currentUser.IsMainUser
+            };
+            return View(LimitAndIsMainUser);
         }
 
         // GET: Limits/Edit/5
