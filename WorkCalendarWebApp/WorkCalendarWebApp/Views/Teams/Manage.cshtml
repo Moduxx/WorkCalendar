@@ -1,7 +1,7 @@
 ﻿@model WorkCalendarWebApp.ViewModel.TeamAndMembers;
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Manage";
 }
 
 <h1>Team Details</h1>
@@ -32,12 +32,11 @@
 <h2>Add Team Members</h2>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddTeamMember">
+        <form asp-action="Manage">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Team.WorkerID" class="control-label"></label>
-                <input asp-for="Team.WorkerID" class="form-control" />
-                <span asp-validation-for="Team.WorkerID" class="text-danger"></span>
+                <select asp-for="Team.WorkerID" class="form-control" asp-items="@(new SelectList(@ViewBag.Users, "Id", "UserName"))"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Add" class="btn btn-primary" />

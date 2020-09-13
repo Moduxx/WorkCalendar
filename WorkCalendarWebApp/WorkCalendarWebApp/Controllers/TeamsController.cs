@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using WorkCalendarWebApp.Areas.Identity.Data;
 using WorkCalendarWebApp.Data;
 using WorkCalendarWebApp.ViewModel;
 
@@ -16,10 +20,12 @@ namespace WorkCalendarWebApp.Controllers
     public class TeamsController : Controller
     {
         private readonly DbModelContext _context;
+        private readonly UserManager<ApplicationUser> _userContext;
 
-        public TeamsController(DbModelContext context)
+        public TeamsController(DbModelContext context, UserManager<ApplicationUser> userContext)
         {
             _context = context;
+            _userContext = userContext;
         }
 
         // GET: Teams
@@ -189,6 +195,7 @@ namespace WorkCalendarWebApp.Controllers
                 return NotFound();
             }
 
+            // Setup view model
             var allTeamMembers = await _context.Team.ToListAsync();
             var currentTeamMembers = allTeamMembers.FindAll(m => m.TeamName == team.TeamName);
             var teamLeader = currentTeamMembers.FirstOrDefault(n => n.IsTeamLeader == true);
@@ -200,14 +207,28 @@ namespace WorkCalendarWebApp.Controllers
                 TeamLeader = teamLeader.WorkerID
             };
 
+            // Users for drop down list
+            var allUsers = _userContext.Users;
+            foreach (var currTeamMember in currentTeamMembers)
+            {
+                allUsers = allUsers.Where(y => y.UserName != currTeamMember.WorkerID);
+            }
+            ViewBag.Users = allUsers;
+
             return View(teamAndMembers);
         }
 
-        public async Task<IActionResult> AddTeamMember(int id, [Bind("Id,WorkerID")] Team team)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Manage(int id, [Bind("Id,WorkerID")] Team team)
         {
-            var teamMember = await _context.Team
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var teamMember = await _context.Team.FindAsync(id);
+
+            var users = _userContext.Users;
+            var oneUser = users.FirstOrDefault(x => x.Id == team.WorkerID);
+
             team.TeamName = teamMember.TeamName;
+            team.WorkerID = oneUser.UserName;
 
             if (team.WorkerID != "")
             {

@@ -20,6 +20,7 @@ namespace WorkCalendarWebApp.Areas.Identity.Data
         public string LastName { get; set; }
 
         public Boolean IsMainUser { get; set; }
+        public string Fullname { get { return this.FirstName + " " + this.LastName; } }
 
     }
 }
