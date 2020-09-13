@@ -22,6 +22,8 @@ namespace WorkCalendarWebApp.Controllers
         private readonly DbModelContext _context;
         private readonly UserManager<ApplicationUser> _userContext;
 
+        public static int? _currentTeamId;
+
         public TeamsController(DbModelContext context, UserManager<ApplicationUser> userContext)
         {
             _context = context;
@@ -188,6 +190,8 @@ namespace WorkCalendarWebApp.Controllers
                 return NotFound();
             }
 
+            _currentTeamId = id;
+
             var team = await _context.Team
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (team == null)
@@ -218,6 +222,7 @@ namespace WorkCalendarWebApp.Controllers
             return View(teamAndMembers);
         }
 
+        // POST: Teams/Manage/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Manage(int id, [Bind("Id,WorkerID")] Team team)
@@ -247,6 +252,20 @@ namespace WorkCalendarWebApp.Controllers
                 TeamLeader = teamLeader.WorkerID
             };
             return View(teamAndMembers);
+        }
+
+        // GET: Teams/RemoveMember/3
+        public async Task<IActionResult> RemoveMember(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var teamMember = await _context.Team.FindAsync(id);
+            _context.Team.Remove(teamMember);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Manage), "Teams", new { id = _currentTeamId });
         }
 
         private bool TeamExists(int id)
