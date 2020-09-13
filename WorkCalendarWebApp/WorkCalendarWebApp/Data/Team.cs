@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using WorkCalendarWebApp.Areas.Identity.Data;
+using WorkCalendarWebApp.Utilities;
 
 namespace WorkCalendarWebApp.Data
 {

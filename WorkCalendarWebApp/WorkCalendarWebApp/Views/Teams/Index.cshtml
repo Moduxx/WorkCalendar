@@ -37,10 +37,15 @@
                 @Html.DisplayFor(modelItem => item.IsTeamLeader)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="Manage" asp-route-id="@item.Id">Manage</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                @{if (item.IsTeamLeader)
+                    {
+                        <text>|</text>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <text>|</text>
+                        <a asp-action="Manage" asp-route-id="@item.Id">Manage</a> <text>|</text>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                }
             </td>
         </tr>
 }

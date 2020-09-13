@@ -76,7 +76,10 @@ else
                         @Html.DisplayFor(modelItem => member.WorkerID)
                     </td>
                     <td>
-                        <a asp-action="RemoveMember" asp-route-id="@member.Id" class="text-danger ml-1" onclick="return confirm('Are you sure to remove this worker?')">Remove</a>
+                        @if (member.IsTeamLeader == false)
+                        {
+                            <a asp-action="RemoveMember" asp-route-id="@member.Id" class="text-danger ml-1" onclick="return confirm('Are you sure to remove this worker?')">Remove</a>
+                        }
                     </td>
                 </tr>
             }

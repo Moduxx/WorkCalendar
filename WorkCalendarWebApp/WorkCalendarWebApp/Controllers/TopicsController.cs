@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using WorkCalendarWebApp.Data;
+using WorkCalendarWebApp.Utilities;
 using WorkCalendarWebApp.ViewModel;
 
 namespace WorkCalendarWebApp.Controllers
@@ -26,7 +27,9 @@ namespace WorkCalendarWebApp.Controllers
         // GET: Topics
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Topic.ToListAsync());
+            var topics = await _context.Topic.ToListAsync();
+            ValidTopicName.allTopics = topics;
+            return View(topics);
         }
 
         // GET: Topics/Details/5

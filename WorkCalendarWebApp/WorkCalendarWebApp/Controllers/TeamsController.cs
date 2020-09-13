@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WorkCalendarWebApp.Areas.Identity.Data;
 using WorkCalendarWebApp.Data;
+using WorkCalendarWebApp.Utilities;
 using WorkCalendarWebApp.ViewModel;
 
 namespace WorkCalendarWebApp.Controllers
