@@ -21,6 +21,7 @@
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
+                <button id="btnDelete" class="btn btn-danger btn-sm">Remove</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -37,24 +38,32 @@
     <script>
         $(document).ready(function () {
             var events = [];
-            $.ajax({
-                type: "GET",
-                url: "/event/GetEvents",
-                success: function (data) {
-                    $.each(data, function (i, v) {
-                        events.push({
-                            title: v.subject,
-                            description: v.description,
-                            start: moment(v.start),
-                            end: v.end != null ? moment(v.end) : null
-                        });
-                    })
-                    GenerateCalender(events);
-                },
-                error: function (error) {
-                    alert('failed');
-                }
-            })
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/event/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.eventID,
+                                title: v.subject,
+                                description: v.description,
+                                start: moment(v.start),
+                                end: v.end != null ? moment(v.end) : null,
+                                addinfo: v.addinfo
+                            });
+                        })
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+            }
 
             function GenerateCalender(events) {
                 $('#calender').fullCalendar('destroy');
@@ -71,6 +80,7 @@
                     eventColor: '#378006',
                     events: events,
                     eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
                         $description.append($('<p/>').html('<b>Start: </b>' + calEvent.start.format("YYYY-MM-DD HH:mm a")));
@@ -78,12 +88,34 @@
                             $description.append($('<p/>').html('<b>End: </b>' + calEvent.end.format("YYYY-MM-DD HH:mm a")));
                         }
                         $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
+                        if (calEvent.addinfo != null) {
+                            $description.append($('<p/>').html('<b>Comments: </b>' + calEvent.addinfo));
+                        }
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
                     }
                 })
             }
+
+            $('#btnDelete').click(function () {
+                if (selectedEvent != null && confirm('Are you sure?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/event/DeleteEvent',
+                        data: {'eventID': selectedEvent.eventID },
+                        success: function (data) {
+                            if (data) {
+                                FetchEventAndRenderCalendar();
+                                $('#myModal').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Failed!');
+                        }
+                    })
+                }
+            })
         })
 
     </script>

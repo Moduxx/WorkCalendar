@@ -59,10 +59,12 @@ namespace WorkCalendarWebApp.Controllers
             var allEvents = _context.Event.ToList().Where(n => n.WorkerID == User.Identity.Name);
             var events = allEvents.Select(e => new
             {
+                eventID = e.Id,
                 subject = e.TopicName,
                 description = e.SubtopicName,
                 start = e.StartDateTime,
-                end = e.EndDateTime
+                end = e.EndDateTime,
+                addinfo = e.AdditionalInfo
             }).ToList();
 
             return new JsonResult(events);
@@ -99,19 +101,21 @@ namespace WorkCalendarWebApp.Controllers
             return View(calendarEvent);
         }
 
-        [Route("findall")]
-        public IActionResult FindAllEvents()
+        [HttpPost]
+        [Route("DeleteEvent")]
+        public JsonResult DeleteEvent(int eventID)
         {
-            var events = _context.Event.Select(e => new
-            {
-                id = e.Id,
-                title = e.TopicName + " | " + e.SubtopicName,
-                description = e.AdditionalInfo,
-                startDate = e.StartDateTime.ToString("dd/MM/yyyy"),
-                endDate = e.EndDateTime.ToString("dd/MM/yyyy"),
-            }).ToList();
+            var status = false;
 
-            return new JsonResult(events);
+            var currentEvent = _context.Event.Find(eventID);
+            if (currentEvent != null)
+            {
+                _context.Remove(currentEvent);
+                _context.SaveChanges();
+                status = true;
+            }
+
+            return new JsonResult(status);
         }
 
         public IActionResult Privacy()
