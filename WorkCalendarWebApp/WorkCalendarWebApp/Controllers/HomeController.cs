@@ -53,17 +53,17 @@ namespace WorkCalendarWebApp.Controllers
 
         [Route("GetEvents")]
         [HttpGet]
-        public JsonResult GetEvents()
+        public IActionResult GetEvents()
         {
             var events = _context.Event.Select(e => new
             {
-                Subject = e.TopicName,
-                Description = e.SubtopicName,
-                Start = e.StartDateTime,
-                End = e.EndDateTime
+                subject = e.TopicName,
+                description = e.SubtopicName,
+                start = e.StartDateTime,
+                end = e.EndDateTime
             }).ToList();
 
-            return new JsonResult(new { Data = events } );
+            return new JsonResult(events);
         }
 
 
