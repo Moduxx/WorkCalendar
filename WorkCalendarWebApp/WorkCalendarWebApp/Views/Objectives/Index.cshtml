@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WorkCalendarWebApp.Data.Objective>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Objectives</h1>
+
+<p>
+    <a asp-action="Create">Assign</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TopicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubtopicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsLearnt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TopicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubtopicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsLearnt)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Are you sure to unassign this objective?')">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

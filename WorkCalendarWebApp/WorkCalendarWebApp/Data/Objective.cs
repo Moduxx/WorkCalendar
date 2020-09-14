@@ -28,6 +28,7 @@ namespace WorkCalendarWebApp.Data
         [Required(ErrorMessage = "This field is required")]
         [DisplayName("Subtopic Name")]
         public string SubtopicName { get; set; }
+        [DisplayName("Is Completed")]
         public Boolean IsLearnt { get; set; }
     }
 }

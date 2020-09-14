@@ -6,7 +6,7 @@ using WorkCalendarWebApp.Areas.Identity.Data;
 
 namespace WorkCalendarWebApp.Models
 {
-    public class Team
+    public class ActualTeam
     {
         public string TeamName { get; set; }
         public ApplicationUser User { get; set; }

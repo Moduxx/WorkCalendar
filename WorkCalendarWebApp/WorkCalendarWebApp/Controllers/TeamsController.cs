@@ -289,6 +289,12 @@ namespace WorkCalendarWebApp.Controllers
             }
 
             var teamMember = await _context.Team.FindAsync(id);
+
+            if (teamMember == null)
+            {
+                return NotFound();
+            }
+
             _context.Team.Remove(teamMember);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Manage), "Teams", new { id = _currentTeamId });

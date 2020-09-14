@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace WorkCalendarWebApp.Models
 {
-    public class Subtopic
+    public class ActualTopic
     {
-        public string SubtopicName { get; set; }
-        public Topic Topic { get; set; }
+        public string TopicName { get; set; }
         public string AdditionalInfo { get; set; }
+
+        ICollection<ActualSubtopic> Subtopics { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WorkCalendarWebApp.Models
 {
-    public class Limit
+    public class ActualLimit
     {
         public string TeamName { get; set; }
         public int MaxDaysInARow { get; set; }
