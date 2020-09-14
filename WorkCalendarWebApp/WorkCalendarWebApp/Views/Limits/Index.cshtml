@@ -1,0 +1,63 @@
+﻿@model WorkCalendarWebApp.ViewModel.LimitAndIsMainUser;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Global application limits</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Limit.TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Limit.MaxDaysInARow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Limit.MaxDaysPerMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Limit.MaxDaysPerYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Limit.MaxTopicsPerDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Limit.MaxDaysPerQuarter)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Limits) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysInARow)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysPerMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysPerYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxTopicsPerDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDaysPerQuarter)
+            </td>
+            <td>
+                @if (Model.IsMainUser)
+	            {
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>	 
+	            }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

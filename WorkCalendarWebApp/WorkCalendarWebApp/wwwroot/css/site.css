@@ -80,7 +80,7 @@ div.login-logout-tab ul.nav-tabs {
     margin: 0px 0px -12px 0px;
 }
 
-div.login-logout-tab li.nav-tabs {
+div.login-logout-tab li.nav-item {
     width: 50%;
 }
 
@@ -90,8 +90,7 @@ div.login-logout-tab a.nav-link {
     text-align: center;
 }
 
+/*Login Form*/
 div.login-form-icon {
-    align-content: center;
-    align-items: center;
     text-align: center;
 }

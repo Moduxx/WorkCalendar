@@ -1,0 +1,66 @@
+﻿@model WorkCalendarWebApp.Data.Limit
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Limit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            @if (Model.TeamName == "GlobalLimit")
+            {
+                <input type="hidden" asp-for="@Model.TeamName" />
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="@Model.TeamName" class="control-label"></label>
+                    <input asp-for="@Model.TeamName" class="form-control" />
+                    <span asp-validation-for="@Model.TeamName" class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="MaxDaysInARow" class="control-label"></label>
+                <input asp-for="MaxDaysInARow" class="form-control" />
+                <span asp-validation-for="MaxDaysInARow" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxDaysPerMonth" class="control-label"></label>
+                <input asp-for="MaxDaysPerMonth" class="form-control" />
+                <span asp-validation-for="MaxDaysPerMonth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxDaysPerYear" class="control-label"></label>
+                <input asp-for="MaxDaysPerYear" class="form-control" />
+                <span asp-validation-for="MaxDaysPerYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxTopicsPerDay" class="control-label"></label>
+                <input asp-for="MaxTopicsPerDay" class="form-control" />
+                <span asp-validation-for="MaxTopicsPerDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxDaysPerQuarter" class="control-label"></label>
+                <input asp-for="MaxDaysPerQuarter" class="form-control" />
+                <span asp-validation-for="MaxDaysPerQuarter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

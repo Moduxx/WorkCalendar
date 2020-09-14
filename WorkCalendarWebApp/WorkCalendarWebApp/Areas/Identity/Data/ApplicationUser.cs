@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using WorkCalendarWebApp.Models;
 
 namespace WorkCalendarWebApp.Areas.Identity.Data
 {
@@ -17,5 +18,9 @@ namespace WorkCalendarWebApp.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string LastName { get; set; }
+
+        public Boolean IsMainUser { get; set; }
+        public string Fullname { get { return this.FirstName + " " + this.LastName; } }
+
     }
 }
