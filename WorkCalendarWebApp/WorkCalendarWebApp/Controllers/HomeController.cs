@@ -51,6 +51,21 @@ namespace WorkCalendarWebApp.Controllers
             return View(objectivesAndEvents);
         }
 
+        [Route("GetEvents")]
+        [HttpGet]
+        public JsonResult GetEvents()
+        {
+            var events = _context.Event.Select(e => new
+            {
+                Subject = e.TopicName,
+                Description = e.SubtopicName,
+                Start = e.StartDateTime,
+                End = e.EndDateTime
+            }).ToList();
+
+            return new JsonResult(new { Data = events } );
+        }
+
 
         // POST: event/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
