@@ -37,6 +37,7 @@ namespace WorkCalendarWebApp.Controllers
         [Route("Create")]
         public IActionResult Create()
         {
+            var allObjectives = _context.Objective.ToList().Where(m => m.IsLearnt == false);
             var objectivesAndEvents = new ObjectivesAndEvents()
             {
                 Event = new ActualEvent()
@@ -44,7 +45,7 @@ namespace WorkCalendarWebApp.Controllers
                     StartDateTime = DateTime.Today,
                     EndDateTime = DateTime.Today
                 },
-                ObjectiveOptions = _context.Objective.Select(x => new SelectListItem()
+                ObjectiveOptions = allObjectives.Select(x => new SelectListItem()
                 { Value = x.Id.ToString(), Text = x.TeamName + " | " + x.WorkerID + " | "  + x.TopicName + " | " + x.SubtopicName}).ToList(),
             };
 
@@ -55,7 +56,8 @@ namespace WorkCalendarWebApp.Controllers
         [HttpGet]
         public IActionResult GetEvents()
         {
-            var events = _context.Event.Select(e => new
+            var allEvents = _context.Event.ToList().Where(n => n.WorkerID == User.Identity.Name);
+            var events = allEvents.Select(e => new
             {
                 subject = e.TopicName,
                 description = e.SubtopicName,

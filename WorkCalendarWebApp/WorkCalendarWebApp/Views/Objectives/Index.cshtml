@@ -49,6 +49,10 @@
                 @Html.DisplayFor(modelItem => item.IsLearnt)
             </td>
             <td>
+                @if (!item.IsLearnt)
+                {
+                    <a asp-action="Complete" asp-route-id="@item.Id" onclick="return confirm('Are you sure to mark this objective as completed?')">Complete</a> <text>|</text>
+                }
                 <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Are you sure to unassign this objective?')">Delete</a>
             </td>
         </tr>
