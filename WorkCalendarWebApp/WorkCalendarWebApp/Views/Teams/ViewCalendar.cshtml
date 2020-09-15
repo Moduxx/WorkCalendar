@@ -1,13 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Team Calendar";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Worker Calendar</h1>
+    <h1 class="display-4">Team Calendar</h1>
 </div>
-<p>
-    <a asp-action="Create">+Add New Event</a>
-</p>
+
 <div id="calender"></div>
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -21,17 +19,16 @@
                 <p id="pDetails"></p>
             </div>
             <div class="modal-footer">
-                <button id="btnDelete" class="btn btn-danger btn-sm">Remove</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 
-@section Scripts{ 
+@section Scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 
@@ -45,7 +42,7 @@
                 events = [];
                 $.ajax({
                     type: "GET",
-                    url: "/event/GetEvents",
+                    url: "/Teams/GetEvents",
                     success: function (data) {
                         $.each(data, function (i, v) {
                             events.push({
@@ -54,7 +51,8 @@
                                 description: v.description,
                                 start: moment(v.start),
                                 end: v.end != null ? moment(v.end) : null,
-                                addinfo: v.addinfo
+                                addinfo: v.addinfo,
+                                workerID: v.workerID
                             });
                         })
                         GenerateCalender(events);
@@ -83,6 +81,7 @@
                         selectedEvent = calEvent;
                         $('#myModal #eventTitle').text(calEvent.title);
                         var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Worker Name: </b>' + calEvent.workerID));
                         $description.append($('<p/>').html('<b>Start: </b>' + calEvent.start.format("YYYY-MM-DD HH:mm a")));
                         if (calEvent.end != null) {
                             $description.append($('<p/>').html('<b>End: </b>' + calEvent.end.format("YYYY-MM-DD HH:mm a")));
@@ -97,26 +96,8 @@
                     }
                 })
             }
-
-            $('#btnDelete').click(function () {
-                if (selectedEvent != null && confirm('Are you sure?')) {
-                    $.ajax({
-                        type: "POST",
-                        url: '/event/DeleteEvent',
-                        data: {'eventID': selectedEvent.eventID },
-                        success: function (data) {
-                            if (data) {
-                                FetchEventAndRenderCalendar();
-                                $('#myModal').modal('hide');
-                            }
-                        },
-                        error: function () {
-                            alert('Failed!');
-                        }
-                    })
-                }
-            })
         })
 
     </script>
 }
+

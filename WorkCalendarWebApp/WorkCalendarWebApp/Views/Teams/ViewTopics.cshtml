@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WorkCalendarWebApp.Data.Objective>
+
+@{
+    ViewData["Title"] = "ViewTopics";
+}
+
+<h1>Topics for this team</h1>
+
+@if (!Model.Any())
+{
+    <p>There are not any topics.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeamName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkerID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TopicName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubtopicName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsLearnt)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeamName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkerID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TopicName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubtopicName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsLearnt)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

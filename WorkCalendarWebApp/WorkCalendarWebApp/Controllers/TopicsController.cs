@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,6 @@ namespace WorkCalendarWebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var topics = await _context.Topic.ToListAsync();
-            ValidTopicName.allTopics = topics;
             return View(topics);
         }
 
@@ -146,6 +146,9 @@ namespace WorkCalendarWebApp.Controllers
                 return NotFound();
             }
 
+            var topics = await _context.Topic.ToListAsync();
+            ValidTopicName.allTopics = topics.Where(n => n.Id != topic.Id).ToList();
+
             return View(topic);
         }
 
@@ -237,6 +240,26 @@ namespace WorkCalendarWebApp.Controllers
             _context.Subtopic.Remove(subtopic);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(AddSubtopics), "Topics", new { id = TopicIdForSubtopics});
+        }
+
+        // GET: Topics/ViewWorkers/5
+        public async Task<IActionResult> ViewWorkers(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var topic = await _context.Topic.FindAsync(id);
+            if (topic == null)
+            {
+                return NotFound();
+            }
+
+            var allObjectives = await _context.Objective.ToListAsync();
+            var filteredObjectives = allObjectives.FindAll(n => n.TopicName == topic.TopicName);
+
+            return View(filteredObjectives);
         }
 
         private bool TopicExists(int id)

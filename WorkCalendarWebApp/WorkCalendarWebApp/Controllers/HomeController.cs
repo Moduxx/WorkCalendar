@@ -92,13 +92,30 @@ namespace WorkCalendarWebApp.Controllers
                 AdditionalInfo = objectivesAndEvents.Event.AdditionalInfo
             };
 
-            if ((objectivesAndEvents.SelectedObjectiveId) != 0 && (calendarEvent.StartDateTime != null) && (calendarEvent.EndDateTime != null))
+            if ((objectivesAndEvents.SelectedObjectiveId) != 0 && 
+                (calendarEvent.StartDateTime != null) && 
+                (calendarEvent.EndDateTime != null) && 
+                (calendarEvent.EndDateTime > DateTime.Now) && 
+                (calendarEvent.StartDateTime > DateTime.Now))
             {
                 _context.Add(calendarEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(calendarEvent);
+
+            var allObjectives = _context.Objective.ToList().Where(m => m.IsLearnt == false);
+            var objAndEvents = new ObjectivesAndEvents()
+            {
+                Event = new ActualEvent()
+                {
+                    StartDateTime = objectivesAndEvents.Event.StartDateTime,
+                    EndDateTime = objectivesAndEvents.Event.EndDateTime
+                },
+                ObjectiveOptions = allObjectives.Select(x => new SelectListItem()
+                { Value = x.Id.ToString(), Text = x.TeamName + " | " + x.WorkerID + " | " + x.TopicName + " | " + x.SubtopicName }).ToList(),
+            };
+
+            return View(objAndEvents);
         }
 
         [HttpPost]
