@@ -88,6 +88,42 @@ namespace WorkCalendarWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Objectives/Complete/5
+        public async Task<IActionResult> Complete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var objective = await _context.Objective.FindAsync(id);
+
+            if (objective == null)
+            {
+                return NotFound();
+            }
+
+            objective.IsLearnt = true;
+
+            try
+            {
+                _context.Objective.Update(objective);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ObjectiveExists(objective.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         private bool ObjectiveExists(int id)
         {
             return _context.Objective.Any(e => e.Id == id);

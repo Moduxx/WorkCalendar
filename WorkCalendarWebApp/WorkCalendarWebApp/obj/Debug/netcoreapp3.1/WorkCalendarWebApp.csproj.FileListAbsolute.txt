@@ -206,3 +206,8 @@ C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebA
 C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Teams\Manage.cshtml.g.cs
 C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Objectives\Create.cshtml.g.cs
 C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Objectives\Index.cshtml.g.cs
+C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Create.cshtml.g.cs
+C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\bin\Debug\netcoreapp3.1\libman.json
+C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Topics\ViewWorkers.cshtml.g.cs
+C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Teams\ViewTopics.cshtml.g.cs
+C:\Users\Admin\Documents\GitHub\WorkCalendar\WorkCalendarWebApp\WorkCalendarWebApp\obj\Debug\netcoreapp3.1\Razor\Views\Teams\ViewCalendar.cshtml.g.cs

@@ -300,6 +300,67 @@ namespace WorkCalendarWebApp.Controllers
             return RedirectToAction(nameof(Manage), "Teams", new { id = _currentTeamId });
         }
 
+        // GET: Teams/ViewTopics/5
+        public async Task<IActionResult> ViewTopics(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var team = await _context.Team
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            var allObjectives = await _context.Objective.ToListAsync();
+            var objToShow = allObjectives.Where(n => n.TeamName == team.TeamName);
+
+            return View(objToShow);
+        }
+
+        // GET: Teams/Edit/5
+        public IActionResult ViewCalendar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var team = _context.Team
+                .FirstOrDefault(m => m.Id == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            _currentTeamId = id;
+
+            return View();
+        }
+
+        // GET: Teams/GetEvents
+        [HttpGet]
+        public IActionResult GetEvents()
+        {
+            var currentTeam = _context.Team.Find(_currentTeamId);
+
+            var allEvents = _context.Event.ToList().Where(n => n.TeamName == currentTeam.TeamName);
+            var events = allEvents.Select(e => new
+            {
+                eventID = e.Id,
+                subject = e.TopicName,
+                description = e.SubtopicName,
+                start = e.StartDateTime,
+                end = e.EndDateTime,
+                addinfo = e.AdditionalInfo,
+                workerID = e.WorkerID
+            }).ToList();
+
+            return new JsonResult(events);
+        }
+
         private bool TeamExists(int id)
         {
             return _context.Team.Any(e => e.Id == id);
