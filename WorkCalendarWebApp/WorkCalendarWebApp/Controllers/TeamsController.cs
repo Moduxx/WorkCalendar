@@ -322,8 +322,21 @@ namespace WorkCalendarWebApp.Controllers
         }
 
         // GET: Teams/Edit/5
-        public IActionResult ViewCalendar()
+        public IActionResult ViewCalendar(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var team = _context.Team
+                .FirstOrDefault(m => m.Id == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            _currentTeamId = id;
+
             return View();
         }
 
